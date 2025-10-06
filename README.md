@@ -35,6 +35,121 @@ A comprehensive collection of iPhone firmware management and device recovery app
 - **Features**: Modern desktop application with Avalonia UI
 - **Run**: `cd GuiApp && dotnet run`
 
+## 📸 Screenshots & Interface Previews
+
+### 🌐 Web Application Interface
+The modern web interface provides the most user-friendly experience:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    📱 iPhone Firmware Manager                   │
+│              Professional iPhone Management Tool                │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────┐ ┌─────────────────────────────────┐
+│         Device Status           │ │       Firmware Files           │
+│ ┌─────────────────────────────┐ │ │ ┌─────────────────────────────┐ │
+│ │ Connection: ✅ Connected    │ │ │ │ Select IPSW File:           │ │
+│ │ Mode: 🔴 Recovery Mode      │ │ │ │ [iPhone_4.7_15.8.5...▼]    │ │
+│ │ [🔄 Refresh Status]         │ │ │ │ [📁 Refresh Files]          │ │
+│ └─────────────────────────────┘ │ │ └─────────────────────────────┘ │
+└─────────────────────────────────┘ └─────────────────────────────────┘
+
+┌─────────────────────────────────┐ ┌─────────────────────────────────┐
+│        Restore Options          │ │           Actions               │
+│ ┌─────────────────────────────┐ │ │ ┌─────────────────────────────┐ │
+│ │ ☑️ Erase all data           │ │ │ │ [🔴 Start Restore]          │ │
+│ │ ☑️ Exclude baseband         │ │ │ │ [⚠️ Force Restart]          │ │
+│ │ ☑️ Debug mode               │ │ │ │ [ℹ️ Exit Recovery]          │ │
+│ └─────────────────────────────┘ │ │ └─────────────────────────────┘ │
+└─────────────────────────────────┘ └─────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│                        Output Log                              │
+│ ┌─────────────────────────────────────────────────────────────┐ │
+│ │ [12:34:56] [System] iPhone Firmware Manager initialized    │ │
+│ │ [12:34:57] [Info] Device status: Recovery Mode             │ │
+│ │ [12:34:58] [Success] Found 1 IPSW file(s)                 │ │
+│ └─────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### 🖥️ Python GUI Application
+The Tkinter-based desktop application:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    iPhone Firmware Manager                     │
+├─────────────────────────────────────────────────────────────────┤
+│ Device Status: [Connected ✅] Mode: [Recovery Mode 🔴]         │
+│                                                                 │
+│ IPSW File: [Browse...] [iPhone_4.7_15.8.5_19H394_Restore.ipsw]│
+│                                                                 │
+│ Options:                                                        │
+│ ☑️ Erase all data (Full restore)                              │
+│ ☑️ Exclude baseband (Recommended for USB issues)              │
+│ ☑️ Debug mode (Verbose output)                                │
+│                                                                 │
+│ [🔴 Start Restore] [⚠️ Force Restart] [ℹ️ Exit Recovery]      │
+│                                                                 │
+│ ┌─────────────────────────────────────────────────────────────┐ │
+│ │ Output Log:                                                │ │
+│ │ [12:34:56] System: iPhone Firmware Manager initialized    │ │
+│ │ [12:34:57] Info: Device detected in Recovery Mode         │ │
+│ │ [12:34:58] Success: IPSW file loaded successfully         │ │
+│ └─────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### 💻 Console Applications
+Both Python and C# console applications provide:
+
+```
+==================================================
+📱 iPhone Firmware Manager
+==================================================
+📱 iPhone Status: Connected (Recovery Mode)
+
+Options:
+1. List available IPSW files
+2. Restore iPhone (Full erase)
+3. Restore iPhone (Keep data)
+4. Show force restart instructions
+5. Refresh device status
+6. Exit
+
+Enter your choice (1-6): _
+```
+
+### 🖼️ Desktop Application (Avalonia)
+The cross-platform desktop GUI:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    iPhone Firmware Manager                     │
+├─────────────────────────────────────────────────────────────────┤
+│ ┌─────────────────┐ ┌─────────────────┐ ┌─────────────────────┐ │
+│ │   Device Info   │ │  Firmware File  │ │   Restore Options   │ │
+│ │                 │ │                 │ │                     │ │
+│ │ Status: ✅      │ │ [Browse...]     │ │ ☑️ Erase Data      │ │
+│ │ Mode: Recovery  │ │ [Select File]   │ │ ☑️ Exclude Baseband │ │
+│ │                 │ │                 │ │ ☑️ Debug Mode      │ │
+│ └─────────────────┘ └─────────────────┘ └─────────────────────┘ │
+│                                                                 │
+│ ┌─────────────────────────────────────────────────────────────┐ │
+│ │                    Action Buttons                          │ │
+│ │ [🔴 Start Restore] [⚠️ Force Restart] [ℹ️ Exit Recovery]  │ │
+│ └─────────────────────────────────────────────────────────────┘ │
+│                                                                 │
+│ ┌─────────────────────────────────────────────────────────────┐ │
+│ │                      Progress Log                          │ │
+│ │ [12:34:56] System: Application started                    │ │
+│ │ [12:34:57] Info: iPhone detected in Recovery Mode         │ │
+│ │ [12:34:58] Success: Ready to restore                      │ │
+│ └─────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────┘
+```
+
 ## 📱 Features
 
 - **Device Detection**: Automatic iPhone detection and status monitoring
@@ -133,11 +248,40 @@ If your iPhone is stuck in recovery mode:
 2. **Use the Applications**: Select IPSW file and start restore
 3. **Try Different USB**: Use original Apple Lightning cable
 
+## 🌐 Web Interface Features
+
+The ASP.NET Core web application provides the most comprehensive interface:
+
+### ✨ Key Features
+- **Real-time Device Monitoring**: Live status updates every second
+- **Responsive Design**: Works on desktop, tablet, and mobile devices
+- **Modern UI**: Bootstrap 5 with Font Awesome icons
+- **Progress Tracking**: Real-time restore progress with animated progress bars
+- **Live Logging**: Real-time output display with color-coded messages
+- **RESTful API**: Clean API endpoints for all operations
+- **Cross-platform**: Access from any device with a web browser
+
+### 🔧 Web API Endpoints
+- `GET /api/device/status` - Get device connection status
+- `GET /api/files/ipsw` - List available IPSW files
+- `POST /api/restore/start` - Start restore process
+- `GET /api/restore/progress` - Get restore progress
+- `POST /api/device/exit-recovery` - Exit recovery mode
+
+### 🎨 Interface Highlights
+- **Device Status Card**: Shows connection status and mode with color-coded badges
+- **Firmware Files Card**: Dropdown selection with file size information
+- **Restore Options Card**: Checkbox options for restore configuration
+- **Action Buttons**: Large, clearly labeled action buttons
+- **Progress Section**: Animated progress bar with status text
+- **Live Log Output**: Terminal-style output with timestamps and color coding
+
 ## 🏗️ Project Structure
 
 ```
 iPhone-Restore-Application/
 ├── README.md                           # This file
+├── screenshots/                        # Interface screenshots
 ├── iphone_firmware_manager.py         # Python GUI application
 ├── simple_iphone_manager.py           # Python console application
 ├── csharp_iphone_manager.cs           # C# console source
@@ -152,6 +296,10 @@ iPhone-Restore-Application/
 │   │   ├── Index.cshtml
 │   │   └── Shared/
 │   │       └── _Layout.cshtml
+│   ├── wwwroot/                       # Web assets
+│   │   ├── css/
+│   │   ├── js/
+│   │   └── lib/                       # Bootstrap, jQuery
 │   └── iPhoneWebManager.csproj
 ├── GuiApp/                            # Avalonia desktop application
 │   ├── AvaloniaMainWindow.axaml
