@@ -1,0 +1,4 @@
+/home/sonwabile/IPHONE/obj/Debug/net8.0/iPhoneManager.GeneratedMSBuildEditorConfig.editorconfig
+/home/sonwabile/IPHONE/obj/Debug/net8.0/iPhoneManager.AssemblyInfoInputs.cache
+/home/sonwabile/IPHONE/obj/Debug/net8.0/iPhoneManager.AssemblyInfo.cs
+/home/sonwabile/IPHONE/obj/Debug/net8.0/iPhoneManager.csproj.CoreCompileInputs.cache

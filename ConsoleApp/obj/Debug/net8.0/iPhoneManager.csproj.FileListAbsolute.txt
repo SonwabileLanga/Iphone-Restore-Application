@@ -1,0 +1,14 @@
+/home/sonwabile/IPHONE/ConsoleApp/bin/Debug/net8.0/iPhoneManager
+/home/sonwabile/IPHONE/ConsoleApp/bin/Debug/net8.0/iPhoneManager.deps.json
+/home/sonwabile/IPHONE/ConsoleApp/bin/Debug/net8.0/iPhoneManager.runtimeconfig.json
+/home/sonwabile/IPHONE/ConsoleApp/bin/Debug/net8.0/iPhoneManager.dll
+/home/sonwabile/IPHONE/ConsoleApp/bin/Debug/net8.0/iPhoneManager.pdb
+/home/sonwabile/IPHONE/ConsoleApp/obj/Debug/net8.0/iPhoneManager.GeneratedMSBuildEditorConfig.editorconfig
+/home/sonwabile/IPHONE/ConsoleApp/obj/Debug/net8.0/iPhoneManager.AssemblyInfoInputs.cache
+/home/sonwabile/IPHONE/ConsoleApp/obj/Debug/net8.0/iPhoneManager.AssemblyInfo.cs
+/home/sonwabile/IPHONE/ConsoleApp/obj/Debug/net8.0/iPhoneManager.csproj.CoreCompileInputs.cache
+/home/sonwabile/IPHONE/ConsoleApp/obj/Debug/net8.0/iPhoneManager.dll
+/home/sonwabile/IPHONE/ConsoleApp/obj/Debug/net8.0/refint/iPhoneManager.dll
+/home/sonwabile/IPHONE/ConsoleApp/obj/Debug/net8.0/iPhoneManager.pdb
+/home/sonwabile/IPHONE/ConsoleApp/obj/Debug/net8.0/iPhoneManager.genruntimeconfig.cache
+/home/sonwabile/IPHONE/ConsoleApp/obj/Debug/net8.0/ref/iPhoneManager.dll

@@ -1,0 +1,366 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "iPhone Firmware Manager";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="jumbotron bg-primary text-white text-center py-5 mb-4">
+                <h1 class="display-4">📱 iPhone Firmware Manager</h1>
+                <p class="lead">Professional iPhone firmware management and device recovery</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Device Status Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-info text-white">
+                    <h5 class="card-title mb-0">Device Status</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <strong>Connection:</strong>
+                        </div>
+                        <div class="col-6">
+                            <span id="connectionStatus" class="badge badge-warning">Checking...</span>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <strong>Mode:</strong>
+                        </div>
+                        <div class="col-6">
+                            <span id="deviceMode" class="badge badge-secondary">Unknown</span>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button id="refreshStatus" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-sync-alt"></i> Refresh Status
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- IPSW Files Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title mb-0">Firmware Files</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="ipswFile" class="form-label">Select IPSW File:</label>
+                        <select id="ipswFile" class="form-select">
+                            <option value="">Loading files...</option>
+                        </select>
+                    </div>
+                    <button id="refreshFiles" class="btn btn-outline-success btn-sm">
+                        <i class="fas fa-folder-open"></i> Refresh Files
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Restore Options Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="card-title mb-0">Restore Options</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="eraseData" checked>
+                        <label class="form-check-label" for="eraseData">
+                            <strong>Erase all data</strong> (Full restore)
+                        </label>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="excludeBaseband" checked>
+                        <label class="form-check-label" for="excludeBaseband">
+                            <strong>Exclude baseband</strong> (Recommended for USB issues)
+                        </label>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="debugMode" checked>
+                        <label class="form-check-label" for="debugMode">
+                            <strong>Debug mode</strong> (Verbose output)
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="card-title mb-0">Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <button id="startRestore" class="btn btn-danger btn-lg">
+                            <i class="fas fa-play"></i> Start Restore
+                        </button>
+                        <button id="forceRestart" class="btn btn-warning">
+                            <i class="fas fa-power-off"></i> Force Restart Device
+                        </button>
+                        <button id="exitRecovery" class="btn btn-info">
+                            <i class="fas fa-sign-out-alt"></i> Exit Recovery Mode
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Card -->
+    <div class="row" id="progressSection" style="display: none;">
+        <div class="col-12 mb-4">
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="card-title mb-0">Restore Progress</h5>
+                </div>
+                <div class="card-body">
+                    <div class="progress mb-3">
+                        <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" 
+                             role="progressbar" style="width: 0%"></div>
+                    </div>
+                    <div id="progressText" class="text-center">Preparing restore...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Log Output Card -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Output Log</h5>
+                    <button id="clearLog" class="btn btn-outline-light btn-sm">
+                        <i class="fas fa-trash"></i> Clear Log
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div id="logOutput" class="bg-dark text-light p-3" style="height: 300px; overflow-y: auto; font-family: 'Courier New', monospace;">
+                        <div class="text-success">[System] iPhone Firmware Manager initialized</div>
+                        <div class="text-info">[System] Ready to manage your iPhone</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Force Restart Instructions -->
+<div class="modal fade" id="forceRestartModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Force Restart Instructions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-warning">
+                    <h6><i class="fas fa-exclamation-triangle"></i> Important Instructions:</h6>
+                </div>
+                <ol>
+                    <li><strong>Hold Power + Home buttons together</strong> for 15-20 seconds</li>
+                    <li><strong>Release both buttons</strong> and wait for Apple logo to appear</li>
+                    <li>This should exit recovery mode if successful</li>
+                    <li>If unsuccessful, try again or use the restore function</li>
+                </ol>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let restoreInProgress = false;
+
+        // Initialize page
+        $(document).ready(function() {
+            checkDeviceStatus();
+            loadIpswFiles();
+            
+            // Set up event handlers
+            $('#refreshStatus').click(checkDeviceStatus);
+            $('#refreshFiles').click(loadIpswFiles);
+            $('#startRestore').click(startRestore);
+            $('#forceRestart').click(showForceRestartInstructions);
+            $('#exitRecovery').click(exitRecovery);
+            $('#clearLog').click(clearLog);
+        });
+
+        function checkDeviceStatus() {
+            $.get('/api/device/status')
+                .done(function(data) {
+                    updateDeviceStatus(data.connected, data.mode);
+                    logMessage(`Device status: ${data.mode}`, 'info');
+                })
+                .fail(function() {
+                    updateDeviceStatus(false, 'Error');
+                    logMessage('Error checking device status', 'danger');
+                });
+        }
+
+        function updateDeviceStatus(connected, mode) {
+            const statusBadge = $('#connectionStatus');
+            const modeBadge = $('#deviceMode');
+            
+            if (connected) {
+                statusBadge.removeClass('badge-warning badge-danger').addClass('badge-success').text('Connected');
+                if (mode === 'Recovery Mode') {
+                    modeBadge.removeClass('badge-secondary').addClass('badge-danger').text('Recovery Mode');
+                } else {
+                    modeBadge.removeClass('badge-secondary').addClass('badge-primary').text('Normal Mode');
+                }
+            } else {
+                statusBadge.removeClass('badge-warning badge-success').addClass('badge-danger').text('Not Connected');
+                modeBadge.removeClass('badge-primary badge-danger').addClass('badge-secondary').text('Unknown');
+            }
+        }
+
+        function loadIpswFiles() {
+            $.get('/api/files/ipsw')
+                .done(function(data) {
+                    const select = $('#ipswFile');
+                    select.empty();
+                    
+                    if (data.files && data.files.length > 0) {
+                        data.files.forEach(function(file) {
+                            select.append(`<option value="${file.path}">${file.name} (${file.size})</option>`);
+                        });
+                        logMessage(`Found ${data.files.length} IPSW file(s)`, 'success');
+                    } else {
+                        select.append('<option value="">No IPSW files found</option>');
+                        logMessage('No IPSW files found in Downloads folder', 'warning');
+                    }
+                })
+                .fail(function() {
+                    $('#ipswFile').html('<option value="">Error loading files</option>');
+                    logMessage('Error loading IPSW files', 'danger');
+                });
+        }
+
+        function startRestore() {
+            if (restoreInProgress) {
+                logMessage('Restore already in progress', 'warning');
+                return;
+            }
+
+            const ipswFile = $('#ipswFile').val();
+            if (!ipswFile) {
+                logMessage('Please select an IPSW file', 'warning');
+                return;
+            }
+
+            if (!confirm('This will erase all data on your iPhone. Continue?')) {
+                return;
+            }
+
+            const options = {
+                eraseData: $('#eraseData').is(':checked'),
+                excludeBaseband: $('#excludeBaseband').is(':checked'),
+                debugMode: $('#debugMode').is(':checked'),
+                ipswFile: ipswFile
+            };
+
+            restoreInProgress = true;
+            $('#startRestore').prop('disabled', true);
+            $('#progressSection').show();
+            logMessage('Starting restore process...', 'info');
+
+            // Start restore process
+            $.post('/api/restore/start', options)
+                .done(function(data) {
+                    logMessage('Restore started successfully', 'success');
+                    monitorRestoreProgress();
+                })
+                .fail(function() {
+                    logMessage('Failed to start restore', 'danger');
+                    restoreInProgress = false;
+                    $('#startRestore').prop('disabled', false);
+                    $('#progressSection').hide();
+                });
+        }
+
+        function monitorRestoreProgress() {
+            const interval = setInterval(function() {
+                $.get('/api/restore/progress')
+                    .done(function(data) {
+                        updateProgress(data.progress, data.status);
+                        logMessage(data.status, 'info');
+                        
+                        if (data.completed) {
+                            clearInterval(interval);
+                            restoreInProgress = false;
+                            $('#startRestore').prop('disabled', false);
+                            
+                            if (data.success) {
+                                logMessage('✅ Restore completed successfully!', 'success');
+                            } else {
+                                logMessage('❌ Restore failed', 'danger');
+                            }
+                        }
+                    })
+                    .fail(function() {
+                        clearInterval(interval);
+                        restoreInProgress = false;
+                        $('#startRestore').prop('disabled', false);
+                        logMessage('Error monitoring restore progress', 'danger');
+                    });
+            }, 1000);
+        }
+
+        function updateProgress(progress, status) {
+            $('#progressBar').css('width', progress + '%').attr('aria-valuenow', progress);
+            $('#progressText').text(status);
+        }
+
+        function showForceRestartInstructions() {
+            $('#forceRestartModal').modal('show');
+        }
+
+        function exitRecovery() {
+            $.post('/api/device/exit-recovery')
+                .done(function(data) {
+                    logMessage('Attempting to exit recovery mode...', 'info');
+                    setTimeout(checkDeviceStatus, 2000);
+                })
+                .fail(function() {
+                    logMessage('Error attempting to exit recovery mode', 'danger');
+                });
+        }
+
+        function logMessage(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logOutput = $('#logOutput');
+            const colorClass = {
+                'info': 'text-info',
+                'success': 'text-success',
+                'warning': 'text-warning',
+                'danger': 'text-danger'
+            }[type] || 'text-light';
+            
+            logOutput.append(`<div class="${colorClass}">[${timestamp}] ${message}</div>`);
+            logOutput.scrollTop(logOutput[0].scrollHeight);
+        }
+
+        function clearLog() {
+            $('#logOutput').html('<div class="text-success">[System] Log cleared</div>');
+        }
+    </script>
+}

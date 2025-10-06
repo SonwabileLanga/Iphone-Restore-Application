@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=iPhone Firmware Manager
+Comment=GUI application for iPhone firmware management and device recovery
+Exec=python3 /home/sonwabile/IPHONE/iphone_firmware_manager.py
+Icon=phone
+Terminal=false
+Categories=System;Utility;
+Path=/home/sonwabile/IPHONE

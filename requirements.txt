@@ -1,0 +1,7 @@
+# iPhone Firmware Manager Requirements
+# This application uses only Python standard library modules
+# No additional packages required
+
+# Required system tools (install with apt):
+# sudo apt install libimobiledevice-utils
+# sudo apt install usbutils
